@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Provider from '@/lib/provider'
 
 export const metadata: Metadata = {
   title: 'Messenger',
-  description: 'messenger with next.js + nest.js',
+  description: 'Messenger with next.js + nest.js',
 }
 
 export default function RootLayout({
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body>{children}</body>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   )
 }
