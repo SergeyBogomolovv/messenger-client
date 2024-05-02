@@ -24,9 +24,9 @@ const AuthFormWrapper = ({
   backButtonLabel,
 }: Props) => {
   return (
-    <div className='mx-auto w-[700px]'>
+    <div className='mx-auto lg:w-[700px]'>
       <CardHeader className='text-center flex flex-col gap-4'>
-        <CardTitle className='text-5xl font-extrabold tracking-wide'>
+        <CardTitle className='text-4xl md:text-5xl font-extrabold tracking-wide'>
           {title}
         </CardTitle>
         <CardDescription>{description}</CardDescription>
