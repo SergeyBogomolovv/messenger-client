@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --passWithNoTests"
+    "test": "jest"
   },
   "dependencies": {
     "cross-fetch": "^4.0.0",
@@ -22,7 +22,7 @@
     "@babel/preset-react": "^7.24.1",
     "@babel/preset-typescript": "^7.24.1",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^15.0.5",
+    "@testing-library/react": "^15.0.6",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
