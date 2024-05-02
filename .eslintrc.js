@@ -1,14 +1,7 @@
 export default {
   root: true,
   env: { browser: true, es2020: true, node: 'current', 'jest/globals': true },
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jest/recommended',
-    'next/babel',
-    'next/core-web-vitals',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'plugin:jest/recommended', 'next/babel', 'next/core-web-vitals', 'plugin:storybook/recommended'],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'jest'],
