@@ -13,7 +13,7 @@ const layout = ({
       <Separator orientation='vertical' />
       <ChatBar />
       <Separator orientation='vertical' />
-      {children}
+      <div className='grow'>{children}</div>
     </main>
   )
 }

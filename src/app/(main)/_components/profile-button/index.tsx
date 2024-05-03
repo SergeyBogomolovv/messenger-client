@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { FaUserCircle } from 'react-icons/fa'
+import Link from 'next/link'
 
 interface Props {
   logoSrc: string
@@ -28,7 +29,9 @@ export default function ProfileButton({ logoSrc }: Props) {
       <DropdownMenuContent align='start' sideOffset={10}>
         <DropdownMenuLabel>Мой Профиль</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Настройки</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={'/settings'}>Настройки</Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>Выйти</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -10,12 +10,27 @@ interface Props {
   logo?: string
   time: Date
   online?: boolean
+  active?: boolean
 }
 
-const Chat = ({ time, title, lastMsg, newMessages, logo, online }: Props) => {
+const Chat = ({
+  time,
+  title,
+  lastMsg,
+  newMessages,
+  logo,
+  online,
+  active,
+}: Props) => {
   const lastMessageTime = format(time, 'kk:mm')
+
   return (
-    <div className='flex justify-between px-6 py-3 hover:bg-neutral-200 cursor-pointer group'>
+    <div
+      className={cn(
+        'flex justify-between px-6 py-3 hover:bg-neutral-200 cursor-pointer group',
+        active && 'bg-[#6C63FF]/25',
+      )}
+    >
       <div className='flex items-start gap-x-2'>
         <UserAvatar title={title} logo={logo} online={online} />
         <div>
