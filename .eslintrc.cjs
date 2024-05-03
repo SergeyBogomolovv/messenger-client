@@ -30,5 +30,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-extra-semi': 'off',
     'no-html-link-for-pages': 'off',
+    'react-refresh/only-export-components': 'off',
   },
 }
