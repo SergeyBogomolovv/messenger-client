@@ -6,6 +6,11 @@ module.exports = {
     node: true,
     'jest/globals': true,
   },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
   extends: [
     'next',
     'eslint:recommended',
@@ -16,7 +21,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'jest'],
+  plugins: ['react-refresh', 'jest', 'import', '@typescript-eslint'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',

@@ -1,6 +1,6 @@
-import AccountActions from './_components/account-actions'
-import MainInfo from './_components/main-info'
-import ProfileInfo from './_components/profile-info'
+import AccountActions from '@/modules/settings/account-actions'
+import MainInfo from '@/modules/settings/main-info'
+import ProfileInfo from '@/modules/settings/profile-info'
 
 export default function Page() {
   return (

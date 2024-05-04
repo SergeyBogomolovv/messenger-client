@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
 import UserAvatar from './avatar'
+import Link from 'next/link'
 
 interface Props {
   title: string
@@ -25,7 +26,8 @@ const Chat = ({
   const lastMessageTime = format(time, 'kk:mm')
 
   return (
-    <div
+    <Link
+      href={'/chat/id'}
       className={cn(
         'flex justify-between px-6 py-3 hover:bg-neutral-200 cursor-pointer group',
         active && 'bg-[#6C63FF]/25',
@@ -68,7 +70,7 @@ const Chat = ({
           {newMessages}
         </p>
       </div>
-    </div>
+    </Link>
   )
 }
 

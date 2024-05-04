@@ -1,19 +1,21 @@
 import { Separator } from '@/components/ui/separator'
-import ChatBar from './_components/chatbar'
-import SideBar from './_components/sidebar'
+import Toolbar from '@/modules/toolbar'
 
 const layout = ({
-  children,
+  sidebar,
+  chat,
 }: Readonly<{
   children: React.ReactNode
+  chat: React.ReactNode
+  sidebar: React.ReactNode
 }>) => {
   return (
     <main className='flex h-[100svh]'>
-      <SideBar />
+      <Toolbar />
       <Separator orientation='vertical' />
-      <ChatBar />
+      {sidebar}
       <Separator orientation='vertical' />
-      <div className='grow'>{children}</div>
+      <div className='grow'>{chat}</div>
     </main>
   )
 }

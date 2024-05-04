@@ -1,8 +1,8 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
-import Header from './header'
-import Search from './search'
-import Chat from './chat'
 import { Separator } from '@/components/ui/separator'
+import Chat from '@/modules/sidebar/chat'
+import Header from '@/modules/sidebar/header'
+import Search from '@/modules/sidebar/search'
 
 interface Test {
   title: string
@@ -14,7 +14,7 @@ interface Test {
   active?: boolean
 }
 
-const ChatBar = () => {
+export default async function ChatBar() {
   const chats: Test[] = [
     {
       time: new Date(),
@@ -62,9 +62,9 @@ const ChatBar = () => {
     },
   ]
   return (
-    <div className='h-full w-[350px] flex flex-col items-center pt-6 gap-6'>
+    <section className='h-full w-[350px] flex flex-col items-center pt-6 gap-6'>
       <div className='px-6 w-full space-y-6'>
-        <Header />
+        <Header title='Чаты' />
         <Search />
       </div>
       <ScrollArea className='w-full'>
@@ -83,8 +83,6 @@ const ChatBar = () => {
           </div>
         ))}
       </ScrollArea>
-    </div>
+    </section>
   )
 }
-
-export default ChatBar
