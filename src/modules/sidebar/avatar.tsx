@@ -13,12 +13,12 @@ export default function UserAvatar({ logo, online, title }: Props) {
     <div className='relative'>
       <div
         className={cn(
-          'w-3.5 h-3.5 bg-green-400 absolute top-0 rounded-full right-0 z-50 border-[3px] border-white',
+          'size-3.5 bg-green-400 absolute top-0 rounded-full right-0 z-50 border-[3px] border-white',
           !online && 'hidden',
         )}
       />
       <Avatar className='w-12 h-12 cursor-pointer'>
-        <AvatarImage src={logo} />
+        <AvatarImage src={logo} className='aspect-square object-cover' />
         <AvatarFallback className='font-semibold'>
           {title[0].toUpperCase()}
         </AvatarFallback>

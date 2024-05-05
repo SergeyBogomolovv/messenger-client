@@ -33,7 +33,7 @@ const Chat = ({
         active && 'bg-[#6C63FF]/25',
       )}
     >
-      <div className='flex items-start gap-x-2'>
+      <div className='flex items-start gap-x-2 overflow-clip'>
         <UserAvatar title={title} logo={logo} online={online} />
         <div>
           <p
@@ -44,7 +44,7 @@ const Chat = ({
           >
             {title}
           </p>
-          <p className='text-sm text-muted-foreground max-w-[190px] truncate'>
+          <p className='text-sm text-muted-foreground truncate max-w-[200px]'>
             {lastMsg}
           </p>
         </div>
