@@ -24,7 +24,10 @@ export default function ProfileButton() {
           <Skeleton className='w-12 h-12 rounded-full' />
         ) : (
           <Avatar className='w-12 h-12 cursor-pointer'>
-            <AvatarImage src={data?.logo || ''} />
+            <AvatarImage
+              src={data?.logo || ''}
+              className='aspect-square object-cover'
+            />
             <AvatarFallback className='font-semibold'>
               {data?.name[0].toUpperCase()}
             </AvatarFallback>

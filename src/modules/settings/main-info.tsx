@@ -24,6 +24,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useProfileQuery } from '@/queries/profile.query'
+import { useUpdateProfileMutation } from '@/queries/updateProfile.mutation'
 
 export default function MainInfoComponent() {
   const { isFetching, data } = useProfileQuery()
@@ -31,7 +32,7 @@ export default function MainInfoComponent() {
   const form = useForm<MainInfo>({
     resolver: zodResolver(MainInfoSchema),
   })
-
+  const { mutate } = useUpdateProfileMutation()
   useEffect(() => {
     if (!isFetching && data) {
       form.setValue('name', data.name)
@@ -42,7 +43,7 @@ export default function MainInfoComponent() {
   }, [isFetching])
 
   function onSubmit(values: MainInfo) {
-    console.log(values)
+    mutate(values)
   }
 
   const fileRef = form.register('logo')
