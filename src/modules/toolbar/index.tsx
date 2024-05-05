@@ -26,7 +26,7 @@ const ToolBar = () => {
           label='Избранное'
         />
       </div>
-      <ProfileButton logoSrc='https://github.com/shadcn.png' />
+      <ProfileButton />
     </div>
   )
 }

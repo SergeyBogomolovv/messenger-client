@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import BackButton from './back-button'
-import OAuth from './oauth'
+import OAuthButton from './oauth-button'
 
 interface Props {
   title: string
@@ -33,7 +33,7 @@ const AuthFormWrapper = ({
       </CardHeader>
       <CardContent>{children}</CardContent>
       <CardFooter className='flex flex-col gap-2'>
-        <OAuth />
+        <OAuthButton />
         <BackButton href={backButtonHref} label={backButtonLabel} />
       </CardFooter>
     </div>

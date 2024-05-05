@@ -1,18 +1,18 @@
-import { FcGoogle } from 'react-icons/fc'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+'use client'
+import { useQueryClient } from '@tanstack/react-query'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { PropagateLoader } from 'react-spinners'
 
-const OAuth = () => {
-  return (
-    <div className='flex items-center justify-center w-full'>
-      <Button size='lg' className='w-full' asChild>
-        <Link href={`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login/google`}>
-          <FcGoogle className='h-5 w-5 mr-2' />
-          Продолжить через Google
-        </Link>
-      </Button>
-    </div>
-  )
+export default function OAuth() {
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  if (searchParams.has('token') && typeof localStorage !== 'undefined') {
+    localStorage.setItem('accessToken', searchParams.get('token')!)
+    queryClient.invalidateQueries({ queryKey: ['profile'] }).then(() => {
+      router.push('/')
+    })
+  }
+  return <PropagateLoader />
 }
-
-export default OAuth
