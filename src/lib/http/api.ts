@@ -2,11 +2,11 @@ import axios from 'axios'
 
 const $api = axios.create({
   withCredentials: true,
-  baseURL: process.env.SERVER_URL,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
 })
 
 $api.interceptors.request.use((config) => {
-  config.headers.Authorization = `${localStorage.getItem('accesToken')}`
+  config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
   return config
 })
 
@@ -24,8 +24,10 @@ $api.interceptors.response.use(
       originalRequest._isRetry = true
       try {
         const response = await axios.get(
-          `${process.env.SERVER_URL}/auth/refresh`,
-          { withCredentials: true },
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/refresh`,
+          {
+            withCredentials: true,
+          },
         )
         localStorage.setItem('accessToken', response.data.accessToken)
         return $api.request(originalRequest)

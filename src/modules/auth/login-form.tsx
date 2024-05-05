@@ -8,24 +8,22 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import AuthFormWrapper from '../_components/form-wrapper'
+import AuthFormWrapper from '@/modules/auth/form-wrapper'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Login, LoginSchema } from '@/types/login-schema'
+import { useLoginMutation } from '@/queries/login.mutation'
 
 const LoginForm = () => {
   const form = useForm<Login>({
     resolver: zodResolver(LoginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
   })
 
+  const { mutate } = useLoginMutation()
   function onSubmit(values: Login) {
-    console.log(values)
+    mutate(values)
   }
 
   return (

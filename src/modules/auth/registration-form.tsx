@@ -8,27 +8,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import AuthFormWrapper from '../_components/form-wrapper'
+import AuthFormWrapper from '@/modules/auth/form-wrapper'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Registration, RegistrationSchema } from '@/types/registration-schema'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { useRegistrationMutation } from '@/queries/registration.mutation'
 
 const RegistrationForm = () => {
+  const { mutate } = useRegistrationMutation()
+
   const form = useForm<Registration>({
     resolver: zodResolver(RegistrationSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      username: '',
-      password: '',
-      passwordRepeat: '',
-    },
   })
 
-  function onSubmit(values: Registration) {
-    console.log(values)
+  async function onSubmit(values: Registration) {
+    mutate(values)
   }
 
   return (

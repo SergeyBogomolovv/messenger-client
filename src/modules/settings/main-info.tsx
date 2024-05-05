@@ -22,19 +22,24 @@ import { Textarea } from '@/components/ui/textarea'
 import { MainInfo, MainInfoSchema } from '@/types/main-info-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useProfileQuery } from '@/queries/profile.query'
 
 export default function MainInfoComponent() {
+  const { isFetching, data } = useProfileQuery()
   const [imageUrl, setImageUrl] = useState('')
-
   const form = useForm<MainInfo>({
     resolver: zodResolver(MainInfoSchema),
-    defaultValues: {
-      name: '',
-      about: '',
-      username: '',
-    },
   })
+
+  useEffect(() => {
+    if (!isFetching && data) {
+      form.setValue('name', data.name)
+      form.setValue('about', data.about ? data.about : '')
+      form.setValue('username', data.username)
+      setImageUrl(data.logo ? data.logo : '')
+    }
+  }, [isFetching])
 
   function onSubmit(values: MainInfo) {
     console.log(values)
@@ -63,14 +68,15 @@ export default function MainInfoComponent() {
                 >
                   <div className='opacity-0 z-10 absolute group-hover:opacity-50 transition-opacity h-full w-full bg-black rounded-full' />
                   <AvatarImage
-                    src={imageUrl ? '' : imageUrl}
+                    src={imageUrl}
                     className='aspect-square object-cover'
                   />
                   <AvatarFallback className='font-semibold text-4xl'>
-                    {'Сергей'[0].toUpperCase()}
+                    {data?.name[0].toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <FormField
+                  disabled={isFetching}
                   control={form.control}
                   name='logo'
                   render={() => (
@@ -94,6 +100,7 @@ export default function MainInfoComponent() {
               </div>
               <div className='space-y-4 w-full'>
                 <FormField
+                  disabled={isFetching}
                   control={form.control}
                   name='name'
                   render={({ field }) => (
@@ -105,6 +112,7 @@ export default function MainInfoComponent() {
                   )}
                 />
                 <FormField
+                  disabled={isFetching}
                   control={form.control}
                   name='username'
                   render={({ field }) => (
@@ -118,6 +126,7 @@ export default function MainInfoComponent() {
               </div>
             </div>
             <FormField
+              disabled={isFetching}
               control={form.control}
               name='about'
               render={({ field }) => (

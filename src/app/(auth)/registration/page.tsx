@@ -1,4 +1,4 @@
-import RegistrationForm from '../_components/registration-form'
+import RegistrationForm from '@/modules/auth/registration-form'
 
 const RegistrationPage = () => {
   return <RegistrationForm />

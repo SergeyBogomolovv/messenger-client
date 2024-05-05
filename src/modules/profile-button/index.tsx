@@ -8,31 +8,36 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { FaUserCircle } from 'react-icons/fa'
+import { Skeleton } from '@/components/ui/skeleton'
 import Link from 'next/link'
+import { useLogout } from '@/hooks/use-logout'
+import { useProfileQuery } from '@/queries/profile.query'
 
-interface Props {
-  logoSrc: string
-}
+export default function ProfileButton() {
+  const { data, isFetching } = useProfileQuery()
+  const logout = useLogout()
 
-export default function ProfileButton({ logoSrc }: Props) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Avatar className='w-12 h-12 cursor-pointer'>
-          <AvatarImage src={logoSrc} />
-          <AvatarFallback>
-            <FaUserCircle className='w-full h-full' />
-          </AvatarFallback>
-        </Avatar>
+      <DropdownMenuTrigger disabled={isFetching} asChild>
+        {isFetching ? (
+          <Skeleton className='w-12 h-12 rounded-full' />
+        ) : (
+          <Avatar className='w-12 h-12 cursor-pointer'>
+            <AvatarImage src={data?.logo || ''} />
+            <AvatarFallback className='font-semibold'>
+              {data?.name[0].toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+        )}
       </DropdownMenuTrigger>
       <DropdownMenuContent align='start' sideOffset={10}>
-        <DropdownMenuLabel>Мой Профиль</DropdownMenuLabel>
+        <DropdownMenuLabel>{data?.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href={'/settings'}>Настройки</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>Выйти</DropdownMenuItem>
+        <DropdownMenuItem onClick={logout}>Выйти</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

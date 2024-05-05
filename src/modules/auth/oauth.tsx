@@ -6,7 +6,7 @@ const OAuth = () => {
   return (
     <div className='flex items-center justify-center w-full'>
       <Button size='lg' className='w-full' asChild>
-        <Link href={`http://localhost:5174/auth/login/google`}>
+        <Link href={`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login/google`}>
           <FcGoogle className='h-5 w-5 mr-2' />
           Продолжить через Google
         </Link>
