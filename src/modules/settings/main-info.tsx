@@ -25,14 +25,37 @@ import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { useProfileQuery } from '@/queries/profile.query'
 import { useUpdateProfileMutation } from '@/queries/updateProfile.mutation'
+import { useDebounce } from 'use-debounce'
+import { findByUserName } from '@/actions/find-by-username'
 
 export default function MainInfoComponent() {
-  const { isFetching, data } = useProfileQuery()
-  const [imageUrl, setImageUrl] = useState('')
   const form = useForm<MainInfo>({
     resolver: zodResolver(MainInfoSchema),
   })
   const { mutate } = useUpdateProfileMutation()
+  const username = form.watch('username')
+
+  const { isFetching, data } = useProfileQuery()
+  const [imageUrl, setImageUrl] = useState('')
+  const [isUsernameExists, setUsernameExists] = useState(false)
+  const [debouncedUsername] = useDebounce(username, 600)
+
+  useEffect(() => {
+    findByUserName(debouncedUsername).then((isUsernameExists) => {
+      setUsernameExists(isUsernameExists)
+    })
+  }, [debouncedUsername])
+
+  useEffect(() => {
+    if (isUsernameExists) {
+      form.setError('username', {
+        message: 'Пользователь с таким именем уже существует.',
+      })
+    } else {
+      form.clearErrors()
+    }
+  }, [isUsernameExists])
+
   useEffect(() => {
     if (!isFetching && data) {
       form.setValue('name', data.name)
@@ -65,7 +88,7 @@ export default function MainInfoComponent() {
                   onClick={() => {
                     document.getElementById('logoInput')?.click()
                   }}
-                  className='w-24 h-24 group relative cursor-pointer'
+                  className='size-24 group relative cursor-pointer'
                 >
                   <div className='opacity-0 z-10 absolute group-hover:opacity-50 transition-opacity h-full w-full bg-black rounded-full' />
                   <AvatarImage
@@ -89,8 +112,12 @@ export default function MainInfoComponent() {
                           accept='.png,.jpeg,.jpg,.webp'
                           {...fileRef}
                           onChange={(e) => {
-                            setImageUrl(URL.createObjectURL(e.target.files![0]))
-                            fileRef.onChange(e)
+                            if (e.target.files?.length) {
+                              setImageUrl(
+                                URL.createObjectURL(e.target.files[0]),
+                              )
+                              fileRef.onChange(e)
+                            }
                           }}
                           hidden
                         />
@@ -121,6 +148,7 @@ export default function MainInfoComponent() {
                       <FormControl>
                         <Input placeholder='Имя пользователя' {...field} />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -145,7 +173,11 @@ export default function MainInfoComponent() {
             />
           </CardContent>
           <CardFooter>
-            <Button type='submit' variant='primary'>
+            <Button
+              disabled={isUsernameExists || isFetching}
+              type='submit'
+              variant='primary'
+            >
               Сохранить
             </Button>
           </CardFooter>

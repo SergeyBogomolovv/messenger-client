@@ -15,13 +15,34 @@ import { Registration, RegistrationSchema } from '@/types/registration-schema'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useRegistrationMutation } from '@/queries/registration.mutation'
+import { useEffect, useState } from 'react'
+import { useDebounce } from 'use-debounce'
+import { findByUserName } from '@/actions/find-by-username'
 
 const RegistrationForm = () => {
   const { mutate } = useRegistrationMutation()
-
   const form = useForm<Registration>({
     resolver: zodResolver(RegistrationSchema),
   })
+  const username = form.watch('username')
+  const [isUsernameExists, setUsernameExists] = useState(false)
+  const [debouncedUsername] = useDebounce(username, 600)
+
+  useEffect(() => {
+    findByUserName(debouncedUsername).then((isUsernameExists) => {
+      setUsernameExists(isUsernameExists)
+    })
+  }, [debouncedUsername])
+
+  useEffect(() => {
+    if (isUsernameExists) {
+      form.setError('username', {
+        message: 'Пользователь с таким именем уже существует.',
+      })
+    } else {
+      form.clearErrors()
+    }
+  }, [isUsernameExists])
 
   async function onSubmit(values: Registration) {
     mutate(values)
@@ -45,9 +66,6 @@ const RegistrationForm = () => {
                 <FormControl>
                   <Input placeholder='Иван Иванов' {...field} />
                 </FormControl>
-                <FormDescription>
-                  Это ваше публичное имя которое вы можете менять
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -57,15 +75,15 @@ const RegistrationForm = () => {
             name='username'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Уникальное имя</FormLabel>
+                <FormLabel>Никнейм</FormLabel>
                 <FormControl>
-                  <Input placeholder='ivangm' {...field} />
+                  <Input placeholder='ivan' {...field} />
                 </FormControl>
+                <FormMessage />
                 <FormDescription>
                   Это ваш уникальный тег по которому вас смогут находить другие
                   пользователи
                 </FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -113,6 +131,7 @@ const RegistrationForm = () => {
             )}
           />
           <Button
+            disabled={isUsernameExists}
             size={'lg'}
             className='w-full'
             variant={'primary'}
