@@ -11,29 +11,18 @@ export const useUpdateProfileMutation = () => {
   return useMutation({
     mutationFn: async (values: MainInfo) => {
       try {
-        const { data } = await $api.put<Profile>('/profile', {
-          name: values.name,
-          about: values.about,
-          username: values.username,
-        })
+        const formData = new FormData()
+        formData.append('name', values.name)
+        formData.append('username', values.username)
+        values.about
+          ? formData.append('about', values.about)
+          : formData.append('about', '')
+        if (values.logo) formData.append('logo', values.logo[0])
+        const { data } = await $api.put<Profile>('/profile', formData)
         return ProfileSchema.parse(data)
       } catch (error) {
         if (isAxiosError(error)) {
           throw new Error(error.response?.data.message)
-        }
-      }
-    },
-    onMutate: async (variables) => {
-      if (variables.logo[0]) {
-        const formData = new FormData()
-        formData.append('logo', variables.logo[0])
-        try {
-          const { data } = await $api.put<Profile>('/profile/logo', formData)
-          return ProfileSchema.parse(data)
-        } catch (error) {
-          if (isAxiosError(error)) {
-            throw new Error(error.response?.data.message)
-          }
         }
       }
     },
