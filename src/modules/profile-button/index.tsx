@@ -10,12 +10,12 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import Link from 'next/link'
-import { useLogout } from '@/hooks/use-logout'
 import { useProfileQuery } from '@/queries/profile.query'
+import { useLogoutMutation } from '@/queries/logout.mutation'
 
 export default function ProfileButton() {
   const { data, isFetching } = useProfileQuery()
-  const logout = useLogout()
+  const { mutate: logout } = useLogoutMutation()
 
   return (
     <DropdownMenu>
@@ -40,7 +40,7 @@ export default function ProfileButton() {
         <DropdownMenuItem asChild>
           <Link href={'/settings'}>Настройки</Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={logout}>Выйти</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => logout()}>Выйти</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

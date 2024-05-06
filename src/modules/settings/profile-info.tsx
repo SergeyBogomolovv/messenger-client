@@ -38,7 +38,7 @@ export default function ProfileInfo() {
             <Skeleton className='w-5/12 h-[12px] rounded-md' />
           ) : (
             <p className='text-muted-foreground text-sm font-mono'>
-              {format(data!.createdAt!, 'dd.MM.yyyy')}
+              {data?.createdAt ? format(data.createdAt, 'dd.MM.yyyy') : ''}
             </p>
           )}
         </div>
