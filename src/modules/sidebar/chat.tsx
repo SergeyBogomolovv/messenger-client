@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { HiOutlineDotsHorizontal } from 'react-icons/hi'
-import UserAvatar from './avatar'
+import UserAvatar from '../../components/avatar'
 import Link from 'next/link'
 
 interface Props {
@@ -34,13 +34,10 @@ const Chat = ({
       )}
     >
       <div className='flex items-start gap-x-2 overflow-clip'>
-        <UserAvatar title={title} logo={logo} online={online} />
+        <UserAvatar name={title} logo={logo} online={online} />
         <div>
           <p
-            className={cn(
-              'font-semibold truncate',
-              newMessages && 'text-[#6C63FF]',
-            )}
+            className={cn('font-semibold truncate', newMessages && 'text-main')}
           >
             {title}
           </p>
@@ -50,20 +47,20 @@ const Chat = ({
         </div>
       </div>
       <div className='flex flex-col gap-2 items-end'>
-        <button className='group-hover:block hidden hover:text-[#6C63FF] py-2'>
+        <button className='group-hover:block hidden hover:text-main py-2'>
           <HiOutlineDotsHorizontal className='w-6 h-6' />
         </button>
         <p
           className={cn(
             'text-xs group-hover:hidden',
-            newMessages && 'text-[#6C63FF]',
+            newMessages && 'text-main',
           )}
         >
           {lastMessageTime}
         </p>
         <p
           className={cn(
-            'rounded-full group-hover:hidden text-white text-xs hidden bg-[#6C63FF] w-5 h-5',
+            'rounded-full group-hover:hidden text-white text-xs hidden bg-main w-5 h-5',
             newMessages && 'flex justify-center items-center',
           )}
         >

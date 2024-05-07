@@ -1,10 +1,11 @@
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { FiUserPlus } from 'react-icons/fi'
-
 import { Button } from '@/components/ui/button'
+
 interface Props {
   title: string
 }
+
 export default function Header({ title }: Props) {
   return (
     <header className='flex justify-between items-center w-full'>

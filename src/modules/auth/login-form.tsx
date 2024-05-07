@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import AuthFormWrapper from '@/modules/auth/form-wrapper'
+import AuthFormWrapper from '@/modules/auth/components/form-wrapper'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'

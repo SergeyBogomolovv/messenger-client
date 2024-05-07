@@ -3,10 +3,10 @@ import Toolbar from '@/modules/toolbar'
 
 const layout = ({
   sidebar,
-  chat,
+  main,
 }: Readonly<{
   children: React.ReactNode
-  chat: React.ReactNode
+  main: React.ReactNode
   sidebar: React.ReactNode
 }>) => {
   return (
@@ -15,7 +15,7 @@ const layout = ({
       <Separator orientation='vertical' />
       {sidebar}
       <Separator orientation='vertical' />
-      <div className='grow'>{chat}</div>
+      <div className='grow'>{main}</div>
     </main>
   )
 }

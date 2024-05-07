@@ -21,9 +21,9 @@ export default function ProfileButton() {
     <DropdownMenu>
       <DropdownMenuTrigger disabled={isFetching} asChild>
         {isFetching ? (
-          <Skeleton className='w-12 h-12 rounded-full' />
+          <Skeleton className='size-12 rounded-full' />
         ) : (
-          <Avatar className='w-12 h-12 cursor-pointer'>
+          <Avatar className='size-12 cursor-pointer'>
             <AvatarImage
               src={data?.logo || ''}
               className='aspect-square object-cover'

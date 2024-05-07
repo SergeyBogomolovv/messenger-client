@@ -5,10 +5,10 @@ import { cn } from '@/lib/utils'
 interface Props {
   logo?: string
   online?: boolean
-  title: string
+  name: string
 }
 
-export default function UserAvatar({ logo, online, title }: Props) {
+export default function UserAvatar({ logo, online, name }: Props) {
   return (
     <div className='relative'>
       <div
@@ -17,10 +17,10 @@ export default function UserAvatar({ logo, online, title }: Props) {
           !online && 'hidden',
         )}
       />
-      <Avatar className='w-12 h-12 cursor-pointer'>
+      <Avatar className='size-12'>
         <AvatarImage src={logo} className='aspect-square object-cover' />
         <AvatarFallback className='font-semibold'>
-          {title[0].toUpperCase()}
+          {name[0].toUpperCase()}
         </AvatarFallback>
       </Avatar>
     </div>

@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import AuthFormWrapper from '@/modules/auth/form-wrapper'
+import AuthFormWrapper from '@/modules/auth/components/form-wrapper'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Registration, RegistrationSchema } from '@/types/registration-schema'
@@ -29,9 +29,11 @@ const RegistrationForm = () => {
   const [debouncedUsername] = useDebounce(username, 600)
 
   useEffect(() => {
-    findByUserName(debouncedUsername).then((isUsernameExists) => {
-      setUsernameExists(isUsernameExists)
-    })
+    if (debouncedUsername) {
+      findByUserName(debouncedUsername).then((isUsernameExists) => {
+        setUsernameExists(isUsernameExists)
+      })
+    }
   }, [debouncedUsername])
 
   useEffect(() => {

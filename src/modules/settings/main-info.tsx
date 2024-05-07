@@ -41,9 +41,11 @@ export default function MainInfoComponent() {
   const [debouncedUsername] = useDebounce(username, 600)
 
   useEffect(() => {
-    findByUserName(debouncedUsername).then((isUsernameExists) => {
-      setUsernameExists(isUsernameExists)
-    })
+    if (debouncedUsername) {
+      findByUserName(debouncedUsername).then((isUsernameExists) => {
+        setUsernameExists(isUsernameExists)
+      })
+    }
   }, [debouncedUsername])
 
   useEffect(() => {
