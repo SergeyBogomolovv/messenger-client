@@ -7,7 +7,8 @@ export const ProfileSchema = z.object({
   about: z.nullable(z.string()),
   logo: z.nullable(z.string()),
   email: z.string(),
-  provider: z.array(z.string()),
+  providers: z.array(z.string()),
   createdAt: z.string(),
 })
+
 export type Profile = z.infer<typeof ProfileSchema>

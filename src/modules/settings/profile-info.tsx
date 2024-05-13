@@ -49,7 +49,7 @@ export default function ProfileInfo() {
             <Skeleton className='w-5/12 h-[12px] rounded-md' />
           ) : (
             <p className='text-muted-foreground text-sm font-mono'>
-              {data?.provider
+              {data?.providers
                 .filter((prov) => prov !== 'Credentials')
                 .join(' ')}
             </p>

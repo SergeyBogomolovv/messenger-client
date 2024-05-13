@@ -3,5 +3,5 @@ export interface JwtPayload {
   username: string
   email: string
   verified: string | null
-  provider: string[]
+  providers: string[]
 }

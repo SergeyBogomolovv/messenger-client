@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 const authRoutes = ['/login', '/registration']
 
-export default async function middlewate(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const isOnAuthRoute = authRoutes.includes(pathname)
   if (!request.cookies.has('refreshToken') && !isOnAuthRoute) {
